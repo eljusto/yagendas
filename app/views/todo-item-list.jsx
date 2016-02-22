@@ -1,11 +1,16 @@
-import React from 'react';
-import TodoItem from './todo-item.jsx';
+import React from 'react'
+import { Router, Link } from 'react-router'
+
+import TodoItem from './todo-item.jsx'
+import TodosModel from '../models/todos.js'
 
 export default class TodoItemList extends React.Component {
   render() {
-    let todoItemNodes = this.props.data.map(function (todoItem) {
+    const todos = new TodosModel
+    const tasks = todos.getAll()
+    let todoItemNodes = tasks.map(function (todoItem) {
       return (
-        <TodoItem title={todoItem.title} key={todoItem.id}>
+        <TodoItem task={todoItem} key={todoItem.id}>
           {todoItem.text}
         </TodoItem>
       );
@@ -18,6 +23,7 @@ export default class TodoItemList extends React.Component {
         <div className="todo-ItemList-Elements">
           {todoItemNodes}
         </div>
+        <Link to="/">Home</Link>
       </div>
     );
   }
