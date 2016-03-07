@@ -1,18 +1,18 @@
 import React from 'react'
 import { Router, Link } from 'react-router'
 
-import TodoItem from './todo-item.jsx'
-import TodosModel from '../models/todos.js'
+import TodoItemRow from './task-row.jsx'
+import TasksModel from '../models/tasks.js'
 
-export default class TodoItemList extends React.Component {
+export default class TaskList extends React.Component {
   render() {
-    const todos = new TodosModel
+    const todos = new TasksModel
     const tasks = todos.getAll()
     let todoItemNodes = tasks.map(function (todoItem) {
       return (
-        <TodoItem task={todoItem} key={todoItem.id}>
+        <TodoItemRow task={todoItem} key={todoItem.id}>
           {todoItem.text}
-        </TodoItem>
+        </TodoItemRow>
       );
     });
     return (

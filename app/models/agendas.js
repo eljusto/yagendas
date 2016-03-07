@@ -1,4 +1,4 @@
-export default class TodoModel {
+export default class AgendasModel {
   getAll() {
     var data = [
       {id: 1, title: "Keep calm"},

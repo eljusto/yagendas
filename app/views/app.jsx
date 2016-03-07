@@ -7,7 +7,7 @@ export default class App extends React.Component {
       <div>
         <h1>App</h1>
         <ul role="nav">
-          <li><Link to="todos">Todos</Link></li>
+          <li><Link to="agendas">Todos</Link></li>
         </ul>
         
         {this.props.children}
