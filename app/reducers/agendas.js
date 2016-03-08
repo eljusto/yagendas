@@ -1,18 +1,32 @@
+import * as actions from '../actions/action-types.js'
+
 export function agendas(state = [], action) {
   switch (action.type) {
-    case 'ADD_AGENDA':
+    case actions.ADD_AGENDA:
       return [
         ...state,
         {
+          id: action.id,
           title: action.title,
-          is_completed: false
+          isCompleted: false
         }
       ]
-    case 'COMPLETE_AGENDA':
+      
+    case actions.TOGGLE_AGENDA:
       return state.map((agenda, index) => {
         if (index === action.index) {
           return Object.assign({}, agenda, {
-            is_completed: true
+            isCompleted: !agenda.isCompleted
+          })
+        }
+        return agenda
+      })
+
+    case actions.COMPLETE_AGENDA:
+      return state.map((agenda, index) => {
+        if (index === action.index) {
+          return Object.assign({}, agenda, {
+            isCompleted: true
           })
         }
         return agenda

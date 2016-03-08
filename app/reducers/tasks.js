@@ -1,6 +1,8 @@
+import * as actions from '../actions/action-types.js'
+
 export function tasks(state = [], action) {
   switch (action.type) {
-    case 'ADD_TASK':
+    case actions.ADD_TASK:
       return [
         ...state,
         {
@@ -9,7 +11,17 @@ export function tasks(state = [], action) {
           is_completed: false
         }
       ]
-    case 'COMPLETE_TASK':
+
+    case actions.TOGGLE_TASK:
+      return state.map((agenda, index) => {
+        if (index === action.index) {
+          return Object.assign({}, agenda, {
+            isCompleted: !agenda.isCompleted
+          })
+        }
+        return agenda
+      })
+    case actions.COMPLETE_TASK:
       return state.map((task, index) => {
         if (index === action.index) {
           return Object.assign({}, task, {
