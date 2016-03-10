@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { toggleAgenda } from '../actions/agendas.js'
+import { fetchTasks } from '../actions/tasks.js'
 import AgendaList from '../components/agenda-list.jsx'
 
 const getVisibleAgendas = (agendas, filter) => {
@@ -24,6 +25,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onAgendaClick: (id) => {
       dispatch(toggleAgenda(id))
+      dispatch(fetchTasks(id))
     }
   }
 }
