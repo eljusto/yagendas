@@ -34,3 +34,45 @@ export function tasks(state = [], action) {
       return state
   }
 }
+
+
+
+function tasksIO(state = {
+  isFetching: false,
+  didInvalidate: false,
+  items: []
+}, action) {
+  switch (action.type) {
+    case actions.INVALIDATE_AGENDA:
+      return Object.assign({}, state, {
+        didInvalidate: true
+      })
+    case actions.REQUEST_TASKS:
+      return Object.assign({}, state, {
+        isFetching: true,
+        didInvalidate: false
+      })
+    case actions.RECEIVE_TASKS:
+      return Object.assign({}, state, {
+        isFetching: false,
+        didInvalidate: false,
+        items: action.tasks,
+        lastUpdated: action.receivedAt
+      })
+    default:
+      return state
+  }
+}
+
+export function tasksByAgenda(state = {}, action) {
+  switch (action.type) {
+    case actions.INVALIDATE_AGENDA:
+    case actions.RECEIVE_TASKS:
+    case actions.REQUEST_TASKS:
+      return Object.assign({}, state, {
+        [action.agendaIndex]: tasksIO(state[action.agendaIndex], action)
+      })
+    default:
+      return state
+  }
+}

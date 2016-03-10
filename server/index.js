@@ -8,10 +8,16 @@ app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 
-app.get('/todo-lists', function(req, res) {
+app.get('/agendas', function(req, res) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Credentials', true);
-  res.send(LISTS);
+  var agendas = LISTS.map((l) => 
+                     ({ 
+                       id: l.list_id, 
+                       title: l.title,
+                       isCompleted: l.is_complete 
+                     }));
+  res.send({ agendas });
 });
 
 app.get('/todo-items/:listId', function(req, res) {

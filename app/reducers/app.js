@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { tasks } from './tasks.js'
+import { tasks, tasksByAgenda } from './tasks.js'
 import { agendas } from './agendas.js'
 // import { ADD_TODO, COMPLETE_TODO, SET_VISIBILITY_FILTER, VisibilityFilters } from '../actions/'
 // const { SHOW_ALL } = VisibilityFilters
@@ -17,7 +17,8 @@ import { agendas } from './agendas.js'
 
 const todoApp = combineReducers({
   agendas,
-  tasks
+  tasks,
+  tasksByAgenda
 })
 
 export default todoApp

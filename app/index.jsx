@@ -1,3 +1,5 @@
+import 'babel-polyfill'
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -9,14 +11,25 @@ import TaskDetails from './components/task-details.jsx'
 import VisibleAgendaList from './containers/visible-agenda-list.jsx'
 
 import { addAgenda } from './actions/agendas'
-import { createStore } from 'redux'
+import { fetchTasks } from './actions/tasks'
+import { requestAgendas } from './actions/agendas'
+
+import thunkMiddleware from 'redux-thunk'
+import createLogger from 'redux-logger'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import todoApp from './reducers/app.js'
 
-const store = createStore(todoApp)
-store.dispatch(addAgenda('Learn about actions'))
-store.dispatch(addAgenda('Learn about reducers'))
-store.dispatch(addAgenda('Learn about store'))
+const loggerMiddleware = createLogger()
+
+const store = createStore(
+  todoApp, 
+  applyMiddleware(
+    thunkMiddleware, 
+    loggerMiddleware
+  )
+)
+store.dispatch(requestAgendas())
 
 ReactDOM.render((
   <Provider store={store}>

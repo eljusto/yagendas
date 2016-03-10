@@ -11,10 +11,16 @@ export function agendas(state = [], action) {
           isCompleted: false
         }
       ]
+
+    case actions.SELECT_AGENDA:
+      return action.agendaIndex
+
+    case actions.RECEIVE_AGENDAS:
+      return action.agendas
       
     case actions.TOGGLE_AGENDA:
-      return state.map((agenda, index) => {
-        if (index === action.index) {
+      return state.map((agenda, id) => {
+        if (agenda.id === action.id) {
           return Object.assign({}, agenda, {
             isCompleted: !agenda.isCompleted
           })
@@ -23,8 +29,8 @@ export function agendas(state = [], action) {
       })
 
     case actions.COMPLETE_AGENDA:
-      return state.map((agenda, index) => {
-        if (index === action.index) {
+      return state.map((agenda) => {
+        if (agenda.id === action.id) {
           return Object.assign({}, agenda, {
             isCompleted: true
           })
